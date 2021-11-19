@@ -1,0 +1,11 @@
+# Compiled JavaScript files
+dist/**/*.js
+dist/**/*.js.map
+dist/**/*.d.ts
+dist/**/*.build.*
+
+# TypeScript v1 declaration files
+typings/
+
+# Node.js dependency directory
+node_modules/
