@@ -14,14 +14,26 @@ export class ProductRepositoryService {
     name,
     sku,
     quantity,
+    min,
+    max
   }): SelectQueryBuilder<Product> {
-    const query = this.productRepository.createQueryBuilder('product')
+    const rangeFilter = this.priceRange(min, max);
+    const quantitiesFilter = (quantity > 0) ? `product.quantity = ${quantity}` : '';
+
+    let query = this.productRepository.createQueryBuilder('product')
       .where(
         "product.name like :name OR product.sku = :sku", {
         name: `%${name}%`,
         sku,
       })
       .orderBy('name');
+
+    if (rangeFilter !== '') {
+      query = query.where(rangeFilter).orderBy('price');;
+    } else if (quantitiesFilter !== '') {
+      query = query.where(quantitiesFilter).orderBy('quantity');;
+    }
+
     return query;
   }
 
@@ -63,5 +75,19 @@ export class ProductRepositoryService {
     }
     
     return itemSaved;
+  }
+
+  private priceRange(min: number, max: number) {
+    if (min === undefined || max === undefined) {
+      return '';
+    }
+
+    if (+min < 0 || +max < 0) {
+      throw new Error('Las cantidades no pueden ser menores a cero');
+    }
+    if (+min >= +max) {
+      throw new Error('El rango de cantidades es incorrecto');
+    }
+    return `product.price BETWEEN ${min} AND ${max}`;
   }
 }

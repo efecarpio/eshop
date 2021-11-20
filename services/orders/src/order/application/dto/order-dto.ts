@@ -20,7 +20,8 @@ export class OrderResponseDto extends ResponseAbstract<Order> {
       status: entity.status,
       total: entity.total,
       items: entity.items,
-      comments: entity.comments
+      comments: entity.comments,
+      paymentmethod: entity.paymentmethod
     };
   }
 

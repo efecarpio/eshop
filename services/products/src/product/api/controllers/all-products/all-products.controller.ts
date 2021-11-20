@@ -30,7 +30,6 @@ export class AllProductsController {
         new GetAllProductsQuery({ query, baseUrl }),
       );
       const output = BasePresenter.populateView(result);
-      this.client.emit('hello', { data: 'Envío desde Product_Service' });
       return output;
     } catch (e) {
       throw new HttpException('Server Error', HttpStatus.EXPECTATION_FAILED);

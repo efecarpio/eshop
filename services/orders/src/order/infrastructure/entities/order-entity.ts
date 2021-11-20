@@ -22,6 +22,8 @@ export class Order extends AuditShared{
   total: number;
   @Column()
   comments: string;
+  @Column()
+  paymentmethod: string;
 
   @ManyToOne(() => Buyer, (entity: Buyer) => entity.id)
   @JoinColumn({ name: "idbuyer" })

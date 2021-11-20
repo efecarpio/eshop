@@ -10,4 +10,5 @@ export class OrderRequest {
   buyer: BuyerRequest;
   items!: OrderItemRequest[];
   idbuyersession?: string;
+  paymentmethod: string;
 }
