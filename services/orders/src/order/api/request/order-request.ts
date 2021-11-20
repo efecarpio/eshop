@@ -9,4 +9,5 @@ export class OrderRequest {
   comments: string;
   buyer: BuyerRequest;
   items!: OrderItemRequest[];
+  idbuyersession?: string;
 }

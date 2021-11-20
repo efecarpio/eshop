@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { HttpModule, Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -12,6 +12,7 @@ import { controllers } from './api';
 import { repositories } from './infrastructure/repositories';
 import { eventHandlers } from './application/events';
 
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([
@@ -19,6 +20,7 @@ import { eventHandlers } from './application/events';
       Order,
       OrderItem
     ]),
+    HttpModule,
     CqrsModule
   ],
   providers: [

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -17,6 +17,7 @@ import { OrderModule } from './order/order.module';
       "entities": [],
       "synchronize": false
     }),
+    HttpModule,
     OrderModule
   ],
   controllers: [AppController],
