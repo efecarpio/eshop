@@ -5,19 +5,23 @@ import {
   HttpStatus,
   Param,
 } from '@nestjs/common';
+import { QueryBus } from '@nestjs/cqrs';
+import { GetProductQuery } from 'src/product/application/queries';
 import { BasePresenter } from './../../../shared';
-import { GetProductUsecaseService } from './../../../application/usecases';
+
 
 @Controller('products')
 export class GetProductController {
   constructor(
-    private readonly useCase: GetProductUsecaseService
+    private readonly queryBus: QueryBus
   ) {}
 
   @Get(':id')
   async findById(@Param('id') id: number): Promise<any[]> {
     try {
-      const result = await this.useCase.execute(id);
+      const result = await this.queryBus.execute<GetProductQuery, any[]>(
+        new GetProductQuery(id),
+      );
       const output = BasePresenter.populateView(result);
       return output;
     } catch (e) {

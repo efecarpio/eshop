@@ -1,14 +1,9 @@
 /* eslint-disable require-jsdoc */
-import { IPaginateRequest } from "src/product/api/requests";
+import { IPaginateRequest } from "../api/paginate-request.interface";
 import { SelectQueryBuilder } from "typeorm";
 
 const PER_PAGE = 20;
 const CACHE_SG = 30*1000;
-
-export interface IPaginateResponse<T> {
-  data: T[];
-  links: any;
-}
 
 export async function paginate<T>(
     queryBuilder: SelectQueryBuilder<T>,

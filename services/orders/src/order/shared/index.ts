@@ -1,4 +1,5 @@
 export * from './api/base-presenter';
+export * from './api/paginate-request.interface';
 export * from './domain/result';
 export * from './domain/usecase.interface';
 export * from './utils/common-functions';
