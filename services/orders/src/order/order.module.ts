@@ -11,6 +11,8 @@ import {
 import { controllers } from './api';
 import { repositories } from './infrastructure/repositories';
 import { eventHandlers } from './application/events';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { join } from 'path';
 
 
 @Module({
@@ -21,7 +23,17 @@ import { eventHandlers } from './application/events';
       OrderItem
     ]),
     HttpModule,
-    CqrsModule
+    CqrsModule,
+    ClientsModule.register([
+      {
+        name: 'BASKET_PACKAGE',
+        transport: Transport.GRPC,
+        options: {
+          package: 'basket',
+          protoPath: join(__dirname, 'order.proto'),
+        },
+      },
+    ]),
   ],
   providers: [
     ...repositories,

@@ -1,0 +1,39 @@
+<mat-toolbar class="mat-elevation-z6 navbar" color="primary">
+  <div fxHide.gt-sm fxLayoutAlign="start center">
+    <button class="menu-button" mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="title">{{ title }}</span>
+  </div>
+  <div fxHide.lt-md>
+    <a class="brand" href="https://github.com/ngx-rocket" translate>APP_NAME</a>
+    <button mat-button routerLink="/home" routerLinkActive="active">
+      <mat-icon>home</mat-icon>
+      <span translate>Home</span>
+    </button>
+    <button mat-button routerLink="/product" routerLinkActive="active">
+      <mat-icon>
+        inventory_2
+      </mat-icon>
+      <span translate>Productos</span>
+    </button>
+  </div>
+  <span fxFlex></span>
+  <button mat-icon-button routerLink="/product/cart">
+    <mat-icon [matBadge]="itemsCart" matBadgeColor="warn">
+      shopping_cart
+    </mat-icon>
+  </button>
+  <!-- <button mat-icon-button [matMenuTriggerFor]="userMenu">
+    <mat-icon>person</mat-icon>
+  </button> -->
+  <mat-menu #userMenu="matMenu">
+    <mat-list>
+      <mat-list-item>
+        <span translate>Logged in as</span>&nbsp;<b>{{ username }}</b>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+    <button mat-menu-item (click)="logout()" translate>Logout</button>
+  </mat-menu>
+</mat-toolbar>

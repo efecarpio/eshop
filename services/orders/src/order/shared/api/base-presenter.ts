@@ -1,3 +1,13 @@
+export interface IPopulateMessage {
+  type: string;
+  mensaje: string;
+}
+
+export interface IPopulateView {
+  data: any;
+  mensaje: IPopulateMessage;
+}
+
 export class BasePresenter {
   public static populateView(
       output: any, message= "", type = "success"

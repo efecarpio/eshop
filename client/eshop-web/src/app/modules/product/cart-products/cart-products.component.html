@@ -1,0 +1,93 @@
+<div class="container">
+  <section>
+    <div class="spacer">
+      <div class="container">
+        <div class="row mt-5">
+          <div class="col-md-12">
+            <div class="row shop-listing">
+              <table class="table shop-table" *ngIf="products.length!==0">
+                <tr>
+                  <th class="b-0">Producto</th>
+                  <th class="b-0" style="text-align: center;">Precio</th>
+                  <th class="b-0" style="text-align: center;">Cantidad</th>
+                  <th class="b-0" style="text-align: right;">Total</th>
+                  <th>&nbsp;</th>
+                </tr>
+                <tr *ngFor="let item of products; index as i">
+                  <td>{{ item.name }}</td>
+                  <td style="text-align: center;">{{ item.price | currency }}</td>
+                  <td style="text-align: center;">
+                    <button mat-stroked-button
+                      [disabled]="item.quantity===1"
+                      style="min-width: 40px !important;padding:0 5px;"
+                      (click)="decrementQTY(i,1)">-</button>
+                    &nbsp;{{ item.quantity }}&nbsp;
+                    <button mat-stroked-button
+                      style="min-width: 40px !important;padding:0 5px;"
+                      (click)="increamentQTY(i,1)">+</button>
+                  </td>
+                  <td style="text-align: right;">
+                    {{ (item.price * item.quantity) | currency }}
+                  </td>
+                  <th class="text-center" style="width:50px;">
+                    <button mat-icon-button
+                      (click)="removeProductFromCart(item.id,i)">
+                      <mat-icon color="warn">delete_outline</mat-icon>
+                    </button>
+                  </th>
+                </tr>
+                <tr>
+                  <td colspan="5">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td colspan="5"
+                    style="text-align:right;border-top:1px solid #ccc;padding:5px;">
+                    <h4>
+                      Total: {{ total() | currency }}
+                    </h4>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="5" style="text-align:right;">
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="5" style="text-align:right;">
+                    <a mat-stroked-button color="primary" (click)="updateCart()">
+                      Actualizar carrito
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="5" style="text-align:right;">
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr style="padding-top: 30px;">
+                  <td colspan="2" style="text-align:right;">
+                    <a mat-stroked-button color="primary" [routerLink]="['/products']">
+                      Continuar comprando
+                    </a>
+                    <a mat-stroked-button color="primary" routerLink="/order">
+                      <mat-icon>done</mat-icon>
+                      Checkout
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <div class="container" *ngIf="products.length === 0">
+                <h3>No tiene productos en su carrito</h3>
+                <a mat-stroked-button color="primary" [routerLink]="['/products']">
+                  Continuar comprando
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

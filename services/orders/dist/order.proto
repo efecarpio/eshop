@@ -1,0 +1,16 @@
+// basket.proto
+syntax = "proto3";
+
+package app;
+
+service BasketController {
+  rpc RemoveBasketAfterOrder (BasketById) returns (BasketConfirm) {}
+}
+
+message BasketById {
+  string id = 1;
+}
+
+message BasketConfirm {
+  int32 confirm = 1;
+}

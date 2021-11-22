@@ -48,15 +48,15 @@ export class BasketService {
     const basketSaved = await this.repository.save({
       ...basket,
       ...{idbuyersession: updateBasketDto.idbuyersession},
-      items: []
+      items: updateBasketDto.items
     });
 
     const { items } = updateBasketDto;
-    const itemsSaved = await this.itemRepository.createBulk(
+    /* const itemsSaved = await this.itemRepository.createBulk(
       items, basket
-    )
+    )*/
 
-    Object.assign(basketSaved.items, itemsSaved);
+    // Object.assign(basketSaved.items, itemsSaved);
     return basketSaved;
   }
 

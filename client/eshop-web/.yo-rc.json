@@ -1,0 +1,44 @@
+{
+  "generator-ngx-rocket": {
+    "version": "10.0.0",
+    "props": {
+      "location": "path",
+      "strict": true,
+      "skipInstall": false,
+      "skipQuickstart": false,
+      "initGit": true,
+      "usePrefix": true,
+      "appName": "eshop web",
+      "target": [
+        "web"
+      ],
+      "ui": "material",
+      "layout": "simple",
+      "features": [
+        "auth",
+        "lazy"
+      ],
+      "languages": [
+        "es-ES"
+      ],
+      "tools": [
+        "prettier",
+        "hads",
+        "compodoc"
+      ],
+      "utility": [
+        "datefns"
+      ],
+      "deploy": "none",
+      "projectName": "eshop-web",
+      "packageManager": "npm",
+      "mobile": [],
+      "desktop": [],
+      "pwa": false,
+      "auth": true,
+      "lazy": true,
+      "e2e": false,
+      "angulartics": false
+    }
+  }
+}

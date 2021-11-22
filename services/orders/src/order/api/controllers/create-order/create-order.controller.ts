@@ -1,6 +1,7 @@
-import { Body, Controller, HttpException, HttpService, HttpStatus, Inject, Post } from '@nestjs/common';
+import { Body, Controller, HttpException, HttpService, HttpStatus, Inject, OnModuleInit, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { EventPattern } from '@nestjs/microservices';
+import { ClientGrpc, EventPattern } from '@nestjs/microservices';
+import { BasketService } from 'src/grpc.interface';
 import { BasePresenter } from 'src/order/shared';
 
 import { OrderRequest } from '../../request/order-request';
@@ -9,11 +10,18 @@ import {
 } from './../../../application/commands';
 
 @Controller('orders')
-export class CreateOrderController {
+export class CreateOrderController implements OnModuleInit {
+  private basketService: BasketService;
+
   constructor(
-    private readonly httpService: HttpService,
+    @Inject('BASKET_PACKAGE') private client: ClientGrpc,
     private readonly commandBus: CommandBus
   ) {}
+
+  onModuleInit() {
+    this.basketService = this.client.getService<BasketService>('BasketIntegrationController');
+    console.log('onModuleInit', this.basketService);
+  }
 
   @Post()
   public async createOrder(@Body() request: OrderRequest): Promise<object> {
@@ -22,17 +30,14 @@ export class CreateOrderController {
       const result = await this.commandBus.execute<OrderCreateCommand, any>(
         new OrderCreateCommand(request),
       );
-
-      this.httpService
-        .delete(`http://localhost:3002/api/basket/sess/${idbuyersession}`)
-        .subscribe(response => {
-          console.log(response.data);
-        });
-
       const output = BasePresenter.populateView(result);
       return output;
     } catch (e) {
-      throw new HttpException('Server Error', HttpStatus.EXPECTATION_FAILED);
+      console.log(e);
+      throw new HttpException(
+        'CreateOrder: ' + e.message,
+        HttpStatus.EXPECTATION_FAILED
+      );
     }
   }
 

@@ -5,5 +5,5 @@ export class CreateBasketItemDto {
   price: number;
   quantity: number;
   imageuri: string;
-  idbasket: number;
+  idbasket: any;
 }

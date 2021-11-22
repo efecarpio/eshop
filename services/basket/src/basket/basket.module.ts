@@ -6,6 +6,8 @@ import { BasketService } from './services/basket.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BasketItemService } from './services/basket-item.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { BasketIntegrationController } from './controllers/basket-integration.controller';
+import { BasketItemController } from './controllers/basket-item.controller';
 
 
 @Module({
@@ -14,7 +16,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       Basket,
       BasketItem
     ]),
-    ClientsModule.register([
+    /* ClientsModule.register([
       {
         name: 'BASKET_SERVICE',
         transport: Transport.RMQ,
@@ -26,10 +28,12 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
           },
         },
       },
-    ])
+    ])*/
   ],
   controllers: [
-    BasketController
+    BasketController,
+    BasketItemController,
+    BasketIntegrationController
   ],
   providers: [
     BasketService,

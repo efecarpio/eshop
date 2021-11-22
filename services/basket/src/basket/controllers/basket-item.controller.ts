@@ -3,7 +3,7 @@ import { BasketItemService } from '../services/basket-item.service';
 
 
 @Controller('basket')
-export class BasketController {
+export class BasketItemController {
   constructor(
     private readonly basketService: BasketItemService
   ) {}
